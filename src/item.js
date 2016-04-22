@@ -10,6 +10,10 @@ var Item = React.createClass( {
 		};
 	},
 
+	shouldComponentUpdate: function( nextProps, nextState ) {
+		return this.state.isFocused !== nextState.isFocused;
+	},
+
 	handleFocus: function() {
 		this.setState({ isFocused: true });
 	},
@@ -38,6 +42,8 @@ var Item = React.createClass( {
 				href: 'javascript:void(0);',
 				onClick: isEnabled ? this.props.action : null,
 				onFocus: this.handleFocus,
+				onMouseMove: this.handleFocus,
+				onMouseLeave: this.handleBlur,
 				onBlur: this.handleBlur,
 				onKeyUp: this.handleKeyUp,
 				tabIndex: -1

@@ -195,6 +195,7 @@ var ButtonOpener = React.createClass({
 	render: function () {
 
 		var opener = React.createElement('button', {
+			key: 0,
 			'aria-haspopup': 'true',
 			className: this.props.className,
 			disabled: this.props.disabled,
@@ -204,6 +205,7 @@ var ButtonOpener = React.createClass({
 		}, this.props.children);
 
 		var menu = React.createElement(Menu, {
+			key: 1,
 			closeCallback: this.closeMenu,
 			items: this.props.items,
 			isVisible: this.state.isMenuVisible
@@ -262,6 +264,10 @@ var Item = React.createClass({
 		};
 	},
 
+	shouldComponentUpdate: function (nextProps, nextState) {
+		return this.state.isFocused !== nextState.isFocused;
+	},
+
 	handleFocus: function () {
 		this.setState({ isFocused: true });
 	},
@@ -288,6 +294,8 @@ var Item = React.createClass({
 			href: 'javascript:void(0);',
 			onClick: isEnabled ? this.props.action : null,
 			onFocus: this.handleFocus,
+			onMouseMove: this.handleFocus,
+			onMouseLeave: this.handleBlur,
 			onBlur: this.handleBlur,
 			onKeyUp: this.handleKeyUp,
 			tabIndex: -1
@@ -402,6 +410,16 @@ var Menu = React.createClass({
 		return Item.tryGetFocusableElement(node.parentNode.lastChild);
 	},
 
+	getHoverFocusable: function (node) {
+		var hoverFocusable = Item.tryGetFocusableElement(node);
+
+		if (!hoverFocusable) {
+			return node;
+		}
+
+		return hoverFocusable;
+	},
+
 	handleKeyUp: function (e) {
 
 		if (e.keyCode !== keys.DOWN && e.keyCode !== keys.UP && e.keyCode !== keys.ESCAPE) {
@@ -427,6 +445,10 @@ var Menu = React.createClass({
 		}
 	},
 
+	handleMouseEnter: function (e) {
+		this.getHoverFocusable(e.target).focus();
+	},
+
 	render: function () {
 
 		var menuClass = classNames({
@@ -436,8 +458,10 @@ var Menu = React.createClass({
 
 		var items = this.props.items ? this.props.items : [];
 
-		var createItemComponent = function (item) {
+		var createItemComponent = function (item, index) {
+
 			return React.createElement(Item, {
+				key: index,
 				action: function () {
 					if (item.isEnabled === false) {
 						return;
@@ -455,13 +479,13 @@ var Menu = React.createClass({
 			if (item.constructor === Array) {
 				return item.map(function (groupItem, groupItemIndex) {
 					if (itemIndex !== items.length - 1 && groupItemIndex === item.length - 1) {
-						return [createItemComponent(groupItem), React.createElement(Separator)];
+						return [createItemComponent(groupItem, itemIndex), React.createElement(Separator)];
 					} else {
 						return createItemComponent(groupItem);
 					}
 				}.bind(this));
 			} else {
-				return createItemComponent(item);
+				return createItemComponent(item, itemIndex);
 			}
 		}.bind(this));
 
@@ -469,6 +493,7 @@ var Menu = React.createClass({
 			className: menuClass,
 			onKeyDown: this.handleKeyDown,
 			onKeyUp: this.handleKeyUp,
+			onMouseMove: this.handleMouseEnter,
 			role: 'menu'
 		}, React.createElement('ul', {}, itemComponents));
 	}

@@ -91,6 +91,7 @@ var ButtonOpener = React.createClass({
 
 		var opener = React.createElement(
 			'button', {
+				key: 0,
 				'aria-haspopup': 'true',
 				className: this.props.className,
 				disabled: this.props.disabled,
@@ -103,6 +104,7 @@ var ButtonOpener = React.createClass({
 
 		var menu = React.createElement(
 			Menu, {
+				key: 1,
 				closeCallback: this.closeMenu,
 				items: this.props.items,
 				isVisible: this.state.isMenuVisible
@@ -110,7 +112,7 @@ var ButtonOpener = React.createClass({
 		);
 
 		var className = classNames({
-			'vui-dropdown': true,
+			'vui-dropdown' : true,
 			'vui-dropdown-open': this.state.isMenuVisible
 		});
 
