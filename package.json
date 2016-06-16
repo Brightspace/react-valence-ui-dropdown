@@ -40,7 +40,7 @@
     "classnames": "^2.2.1"
   },
   "peerDependencies": {
-    "react": ">= 0.13.3 < 0.15"
+    "react": "^0.14.0 || ^15.1.0"
   },
   "devDependencies": {
     "babel-jest": "^5.3.0",
@@ -52,9 +52,9 @@
     "exorcist": "^0.4.0",
     "jest-cli": "^0.7.1",
     "node-sass": "^3.4.1",
-    "react": "^0.14.2",
-    "react-addons-test-utils": "^0.14.2",
-    "react-dom": "^0.14.2",
+    "react": "^15.1.0",
+    "react-addons-test-utils": "^15.1.0",
+    "react-dom": "^15.1.0",
     "rimraf": "^2.4.3",
     "uglify-js": "^2.4.24"
   },

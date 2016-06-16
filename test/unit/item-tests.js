@@ -114,7 +114,7 @@ describe('item', function() {
 		);
 
 		TestUtils.Simulate.keyUp(
-			ReactDOM.findDOMNode(item).firstChild, 
+			ReactDOM.findDOMNode(item).firstChild,
 			{keyCode: keys.SPACE}
 		);
 
@@ -134,7 +134,7 @@ describe('item', function() {
 		);
 
 		TestUtils.Simulate.keyUp(
-			ReactDOM.findDOMNode(item).firstChild, 
+			ReactDOM.findDOMNode(item).firstChild,
 			{keyCode: keys.SPACE}
 		);
 
@@ -143,4 +143,3 @@ describe('item', function() {
 	});
 
 });
-

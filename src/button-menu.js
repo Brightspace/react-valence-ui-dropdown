@@ -36,7 +36,8 @@ var ButtonMenu = React.createClass({
 				className: buttonClass,
 				disabled: this.props.disabled,
 				items: this.props.items,
-				openerType: 'vui-dropdown-button'
+				openerType: 'vui-dropdown-button',
+				menuProps: this.props.menuProps
 			},
 			React.createElement(
 				'span', { className: contentClass },

@@ -1,4 +1,4 @@
-# react-vui-dropdown 
+# react-vui-dropdown
 
 [![NPM version][npm-image]][npm-url]
 [![Build status][ci-image]][ci-url]
@@ -35,7 +35,10 @@ The dropdown takes the following properties:
 * `isPrimary`: optional flag indicating whether opener is primary button
 * `isTextVisible`: optional flag for whether the text is visible
 * `disabled`: optional flag for whether the dropdown button is enabled
-* `items`: optional array of items for the menu
+* `items`: optional array of items for the menu.  The items can optionally include an ownProps prop. These will be copied onto each menu list item as HTML attributes, and allows you to set other aria attributes e.g. role: 'menuitemcheckbox' and aria-checked.
+* `menuProps`: optional, an object defining additional properties for the menu. The only predefined prop is autoClose which prevents the menu from automatically closing when an item is selected. Other properties are copied as is onto the menu DOM element as HTML attributes.  This allows you to set other aria-attributes as required.
+
+Each listitem in the rendered menu contains an empty span placeholder tag with a class of `vui-dropdown-menu-item-image`. This can be used with CSS to add an icon to each list item.
 
 ```javascript
 var dropdown = require('react-vui-dropdown'),
@@ -44,14 +47,14 @@ var dropdown = require('react-vui-dropdown'),
 
 var items = [
 	{ "text": "Action Item 1", "action": someFunction},
-	{ "text": "Action Item 2", "action": someFunction, "isEnabled": false}
+	{ "text": "Action Item 2", "action": someFunction, "isEnabled": false, ownProps: {'aria-checked': true}}
 ];
 
 <ButtonMenu text="Stuff" items={items} />
 
 <ButtonMenu text="Stuff" items={items} disabled />
 
-<ContextMenu text="Stuff" items={items} />
+<ContextMenu text="Stuff" items={items} menuProps:{{autoClose: false}} />
 
 ```
 

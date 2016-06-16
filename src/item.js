@@ -32,6 +32,12 @@ var Item = React.createClass( {
 
 		var isEnabled = (this.props.isEnabled !== false);
 
+		var image = React.createElement(
+			'span', {
+				className: 'vui-dropdown-menu-item-image'
+			}
+		);
+
 		var link = React.createElement(
 			'a', {
 				'aria-disabled': !isEnabled,
@@ -42,6 +48,7 @@ var Item = React.createClass( {
 				onKeyUp: this.handleKeyUp,
 				tabIndex: -1
 			},
+			image,
 			this.props.text
 		);
 
@@ -51,11 +58,20 @@ var Item = React.createClass( {
 			'vui-dropdown-menu-item-focus': this.state.isFocused
 		});
 
+		var listItemProps = {
+			className: itemClass,
+			role: 'menuitem'
+		};
+
+		if (typeof this.props.ownProps === 'object') {
+			for (var k in this.props.ownProps) {
+				listItemProps[k] = this.props.ownProps[k];
+			}
+		}
+
 		return React.createElement(
-			'li', {
-				className: itemClass,
-				role: 'menuitem'
-			},
+			'li',
+			listItemProps,
 			link
 		);
 

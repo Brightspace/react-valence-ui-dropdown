@@ -1,4 +1,5 @@
 var React = require('react'),
+	ReactDOM = require('react-dom'),
 	Menu = require('./menu'),
 	keys = require('./keys'),
 	classNames = require('classnames');
@@ -30,7 +31,7 @@ var ButtonOpener = React.createClass({
 	},
 
 	focus: function() {
-		var button = React.findDOMNode(this).querySelector('button');
+		var button = ReactDOM.findDOMNode(this).querySelector('button');
 		button.focus();
 	},
 
@@ -43,7 +44,7 @@ var ButtonOpener = React.createClass({
 			}
 
 			var parentNode = document.activeElement.parentNode;
-			var menuNode = React.findDOMNode(this);
+			var menuNode = ReactDOM.findDOMNode(this);
 
 			while (parentNode) {
 				if (parentNode === menuNode) {
@@ -91,6 +92,7 @@ var ButtonOpener = React.createClass({
 
 		var opener = React.createElement(
 			'button', {
+				key: 'opener',
 				'aria-haspopup': 'true',
 				className: this.props.className,
 				disabled: this.props.disabled,
@@ -103,9 +105,11 @@ var ButtonOpener = React.createClass({
 
 		var menu = React.createElement(
 			Menu, {
+				key: 'menu',
 				closeCallback: this.closeMenu,
 				items: this.props.items,
-				isVisible: this.state.isMenuVisible
+				isVisible: this.state.isMenuVisible,
+				menuProps: this.props.menuProps
 			}
 		);
 

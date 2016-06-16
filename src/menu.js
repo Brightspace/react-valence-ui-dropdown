@@ -1,5 +1,6 @@
 
 var React = require('react'),
+	ReactDOM = require('react-dom'),
 	Item = require('./item'),
 	Separator = require('./separator'),
 	classNames = require('classnames'),
@@ -10,7 +11,7 @@ var Menu = React.createClass( {
 	componentDidUpdate: function(prevProps) {
 		if (!prevProps.isVisible && this.props.isVisible) {
 
-			var menuElement = React.findDOMNode(this);
+			var menuElement = ReactDOM.findDOMNode(this);
 			var menuRect = menuElement.getBoundingClientRect();
 
 			var openerElement = menuElement.previousSibling;
@@ -97,10 +98,14 @@ var Menu = React.createClass( {
 	},
 
 	handleKeyDown: function(e) {
-		if (e.keyCode === keys.DOWN || e.keyCode === keys.UP) {
-			// prevent scrolling when up/down arrows pressed
+		if (e.keyCode === keys.DOWN || e.keyCode === keys.UP || e.keyCode === keys.SPACE) {
+			// prevent scrolling when up/down arrows/space pressed
 			e.preventDefault();
 		}
+	},
+
+	itemKey: function(itemIndex, groupItemIndex) {
+		return itemIndex + ':' + groupItemIndex;
 	},
 
 	render: function() {
@@ -112,18 +117,23 @@ var Menu = React.createClass( {
 
 		var items = this.props.items ? this.props.items : [];
 
-		var createItemComponent = function(item) {
+		var createItemComponent = function(item, key) {
+
 			return React.createElement(
-				Item, {
+				Item,	{
+					key: key,
 					action: function() {
 						if (item.isEnabled === false) {
 							return;
 						}
-						this.props.closeCallback(true);
+						if (typeof this.props.menuProps !== 'object' || !!this.props.menuProps.autoClose) {
+							this.props.closeCallback(true);
+						}
 						item.action();
 					}.bind(this),
 					isEnabled: item.isEnabled,
-					text: item.text
+					text: item.text,
+					ownProps: item.ownProps
 				}
 			);
 		}.bind(this);
@@ -134,26 +144,35 @@ var Menu = React.createClass( {
 				return item.map(function(groupItem, groupItemIndex) {
 					if (itemIndex !== items.length - 1 && groupItemIndex === item.length - 1) {
 						return [
-							createItemComponent(groupItem),
+							createItemComponent(groupItem, this.itemKey(itemIndex, groupItemIndex)),
 							React.createElement(Separator)
 						];
 					} else {
-						return createItemComponent(groupItem);
+						return createItemComponent(groupItem, this.itemKey(itemIndex, groupItemIndex));
 					}
 				}.bind(this));
 			} else {
-				return createItemComponent(item);
+				return createItemComponent(item, this.itemKey(itemIndex, 0));
 			}
 
 		}.bind(this));
 
+		var menuProps = {
+			className: menuClass,
+			onKeyDown: this.handleKeyDown,
+			onKeyUp: this.handleKeyUp,
+			role: 'menu'
+		};
+
+		if (typeof this.props.menuProps === 'object') {
+			for (var k in this.props.menuProps) {
+				menuProps[k] = this.props.menuProps[k];
+			}
+		}
+
 		return React.createElement(
-			'div', {
-				className: menuClass,
-				onKeyDown: this.handleKeyDown,
-				onKeyUp: this.handleKeyUp,
-				role: 'menu'
-			},
+			'div',
+			menuProps,
 			React.createElement(
 				'ul', {},
 				itemComponents
