@@ -1,3 +1,6 @@
+> Deprecated: use [BrightspaceUI/dropdown](https://github.com/BrightspaceUI/dropdown) web component instead.
+
+
 # react-vui-dropdown 
 
 [![NPM version][npm-image]][npm-url]
