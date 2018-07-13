@@ -1,14 +1,14 @@
 language: node_js
 node_js:
-- '4.1'
+  - '4.1'
 after_success:
-- npm run report-coverage
+  - npm run report-coverage
 deploy:
   provider: npm
   email: d2ltravisdeploy@d2l.com
   api_key:
-    secure: jVXxWnz33GR6sAZmUNZTJwhI5xEsSHojT9BpN+FbtTlv7VCOdtmxaNPbOEvDW4dnVNRaxQB8CQQgGu/xn//UE63H7Zehq2l4vmcQZF4CvMcsZc7V5nm/66XJXLJQgVIuM3WGmOw8NtK1i0xBVtCGSN51kMqq7yLVCYcExt5Owh84k2/yTu2kOZ/pYq5cqEIJrNGAy8VpBeDTDwMrw9BbJnYEXSvf1GvSktFXeXPsLOwf4ihJf7hZt0i3SnU7+KXCzLlrjSouhJKY9Zh+/jME3cBT7ssm1AXzNmsTe6uUr7HxTO37ORvYT5qnIztJFriiFqsfeoNE+mgNEEC2J9Faoo8oSMVsbEyHfJbqKhpfFbdiXjfqM6tRoj7IBgrajIsSDVeA2zwDFzhDDWJmNfqzgkemjMuDTYx5rZTX6kBGhq3DygVqX7AqTxMp/xWxtNy1Hqx2yQOooQvUYi0G7GdEkwqlwpk5ZhyhTStEy9TlH1+d/E8dc7IeqigFZO59bCCFVQScI5iyOwub4C16x+2EbHxWTki+tZ3B/psL009nN+dI5IKouYaNuK5U7xG0h7viA1CaL9HGtdJi5wth2fRiTJXFejgd5q4SMJI4mCi+glfGvUPVqmBPQLAxdkYRDq9C3DZSI0u00Gel2Wrm/VELgtm0I7yUPRr1Y83oxKUMm44=
+    # d2l-travis-deploy: 6269......8f8a
+    secure: r3Wa/DO6Xfv38aXPF+YeK/iqE9EJYdRqBNnYN/XKvtLYe5eMmcUNpHKiwrcjL1f60Qzpe5MMi3Mqi2F6D3c78CCH34PaKcjHpONzKMq9eWfWkVe2dgPYdPrE3OyACxGKsd7xs2p0XoojzUL1QV+zonl2+6/udCVnsa1xGrla5VivRxE2DbqMPX1GJq++GfPGfIHVICu2jpPcFLFrQuiKGFcKLM3MCI7ylDCWqHzV0Q9Jij1MuvaVe2QDYZGQrkQaRk8Hr+5u1wXYrNK9udASLpAy6xBAkyC/vSQqFBDHuC98+8u16Jw7lCyp97hgkev2ZycP+XKkq5MkwQuI6dJ3Ir8F4YXVD4N1qjZuwkMnYz4UxWhU3fEdOy6dX/QpZ0APLoA90ilj3DZaurzqqpSOt38DskUgfaXXw1X6rC9sXGU1foDjVTuzow2sNPTDobi8ob0YMDk4bywH+p9quCX95uc3NpNw8g0uxcGPafIZTBh5Lri8TdJ+GU/tt8nFSbgdmzvC+2Bz4fAnLmlEAeUOI902SNVj4tCnnBmnkTEddZL7ugQ2RrRCd5P22Z7/p9RfhgebMIwcEOgkKx49yd4COABzhNyiSWUWHS8aAHFMzLT/H2yNjt4hP4VRRLSJkcuikVSZoMBeTuuhBwQoB9bgyqP3j2/3A10SbZvMhKyVujE=
   on:
     tags: true
     all_branches: true
-
